@@ -1,4 +1,4 @@
-name: Dill-CI
+name: Demo
 
 on:
   push:
@@ -36,20 +36,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt install libwebkit2gtk-4.1-dev \
-            build-essential \
-            curl \
-            wget \
-            file \
-            libxdo-dev \
-            libssl-dev \
-            libayatana-appindicator3-dev \
-            librsvg2-dev
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -58,15 +44,6 @@ jobs:
           
       - name: Install Node dependencies
         run: npm install
-    
-      - name: Install Rust (stable)
-        uses: dtolnay/rust-toolchain@stable
-  
-      - name: Rust cache
-        uses: swatinem/rust-cache@v2
-        with:
-          workspaces: './src-tauri -> target'
-
       
       - name: Clean SBT caches and set env (Windows only)
         if: matrix.platform == 'windows-latest'
@@ -92,11 +69,6 @@ jobs:
           sbt clean
           sbt -Djava.io.tmpdir=$RUNNER_TEMP update
 
-      - name: Test frontend
+      - name: Run sbt test
         shell: bash
         run: sbt test
-
-      - name: Test backend
-        run: |
-          cd src-tauri
-          cargo test

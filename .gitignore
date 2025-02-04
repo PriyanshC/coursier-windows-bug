@@ -1,0 +1,13 @@
+# root level ignore
+.vscode/
+node_modules/
+dist/
+static/
+target/
+
+.bloop
+.bsp
+.metals
+
+project/project
+project/metals.sbt
