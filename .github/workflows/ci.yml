@@ -44,15 +44,6 @@ jobs:
           
       - name: Install Node dependencies
         run: npm install
-      
-      - name: Clean SBT caches and set env (Windows only)
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          rm -rf "$GITHUB_WORKSPACE/.coursier-cache"
-          rm -rf "C:/Users/runneradmin/.ivy2/cache"
-          rm -rf "C:/Users/runneradmin/.sbt"
-          echo "SBT_OPTS=-Dfile.encoding=UTF-8" >> $GITHUB_ENV
 
       - name: Setup Java
         uses: actions/setup-java@v4
