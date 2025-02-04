@@ -56,9 +56,7 @@ jobs:
 
       - name: Update sbt
         shell: bash
-        run: |
-          sbt clean
-          sbt update
+        run: sbt update
 
       - name: Run sbt test
         shell: bash
